@@ -1,11 +1,10 @@
 # TP MIAGE conception logicielle
 
-Halim el ouatani , Maxime Potet M1 Miage alt
 WARNING: NE PAS OUBLIER DE MENTIONNER LES DEUX NOMS SI VOUS ETES EN BINOME!
 
-#XXX# (et #YYY#)
+#Maxime POTET# et #Halim EL OUATANI#
 
-Commentaires éventuels des étudiants : #XXXXXX#
+Commentaires éventuels des étudiants : ##
 
 ## Pré-requis 
 
