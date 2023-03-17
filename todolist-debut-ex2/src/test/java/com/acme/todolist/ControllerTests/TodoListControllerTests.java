@@ -57,7 +57,7 @@ public class TodoListControllerTests {
         createTestTodo("testItemEqual24", Instant.now().plusSeconds(3600 * 24), "Test item d'exactement 24h de retard");
         createTestTodo("testItemMinus24", Instant.now().plusSeconds(3600 * 23), "Test item de moins de 24h de retard");
         // When
-        MvcResult mvcResult = mockMvc.perform(get("/todo-items"))
+        MvcResult mvcResult = mockMvc.perform(get("/todos"))
                 .andExpect(status().isOk())
                 .andReturn();
 
