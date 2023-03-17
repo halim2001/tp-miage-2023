@@ -1,6 +1,6 @@
 # TP MIAGE conception logicielle
 
-## Nom du(des) étudiant(e)(s) de ce monôme/binôme 
+Halim el ouatani , Maxime Potet M1 Miage alt
 WARNING: NE PAS OUBLIER DE MENTIONNER LES DEUX NOMS SI VOUS ETES EN BINOME!
 
 #XXX# (et #YYY#)
@@ -44,9 +44,28 @@ TIP: [Rappel Git] Trois dépôts sont ici utilisés: le dépot Github de l'ensei
 
 *Le code est-il structuré en couches ? Quel problèmes ce code peut-il poser ?*
 
+Ce code est bien structuré en couches, en effet, nous pouvons observer une couche haute : la couche Application, superposant une couche Controller, puis une couche Repository, pour finir avec la couche la plus basse, celle de la base de données PostgreS.
+
+Problèmes de ce code :
+Complexité élevée : Ajouter des couches supplémentaires peut augmenter la complexité de l'application. Cela peut rendre le code plus difficile à comprendre et à maintenir.
+Coût élevé : La mise en place de plusieurs couches peut prendre plus de temps et d'efforts pour développer l'application. Cela peut également augmenter les coûts de développement.
+Performance : L'ajout de couches peut également entraîner une perte de performances en raison de la surcharge de la communication entre les couches.
+Trop de dépendances : Les couches supérieures sont souvent dépendantes des couches inférieures, ce qui peut créer des problèmes si les couches inférieures sont modifiées. Cela peut nécessiter des modifications dans plusieurs couches pour effectuer une modification dans une seule couche.
+Sur-complexité : Une structure en couches peut conduire à une sur-complexité, en ajoutant des couches supplémentaires qui ne sont pas nécessaires pour l'application, rendant ainsi le code plus complexe et difficile à comprendre.
+
+
 *Où se trouve le code métier (voir la règle de gestion RG 1) ?*
 
+Le code métier se trouve dans le code du/des contrôleur(s), en effet, c’est la couche la plus haute, celle qui va être utilisée par une autre application où par un front-end.
+
+
+
 *Cette règle est-elle facilement testable par un test unitaire ?*
+
+Oui, il est possible de tester les contrôleurs Spring Boot avec des tests unitaires.
+Spring Boot fournit un ensemble d'outils de test qui permettent de tester facilement les différents composants d'une application, dont les contrôleurs.
+Avec spring boot, un framework de test unitaire intégré est fourni (Spring Test). Spring Test fournit des annotations (@WebMvcTest et @MockMvc) qui permettent de simuler des requêtes HTTP entrantes et de tester le comportement des contrôleurs en réponse.
+
 
 * Lancer une base PostgreSQL en Docker dans un terminal (on lance ici la base en mode interactif pour visualiser son activité. Pour la lancer en tâche de fond, remplacer les options `it` par `d` comme 'daemon'):
 ```bash
@@ -54,9 +73,20 @@ docker run -it -e POSTGRES_PASSWORD=password -p 5432:5432 postgres
 ```
 *Expliquer cette ligne de commande (y compris les options utilisées)*
 
+"docker run" : Commande utilisée pour exécuter un nouveau conteneur Docker.
+"-it" : Démarrer le conteneur en mode interactif et connecter un terminal à celui-ci.
+"-e POSTGRES_PASSWORD=password" : Définir la variable d'environnement "POSTGRES_PASSWORD" dans le conteneur avec la valeur "password". Cette variable est utilisée pour définir le mot de passe du Super User de la DB Postgres.
+"-p 5432:5432" : Mappe le port TCP 5432 du conteneur (le port par défaut utilisé par Postgres) sur le port TCP 5432 de la machine hôte. Cela permet à la base de données Postgres de communiquer avec les applications s'exécutant sur la machine hôte.
+"postgres" : Nom de l'image Docker à utiliser pour le conteneur. Cette commande utilisera l'image "postgres" pour créer et exécuter le conteneur.
+
+
 * Compléter le code manquant dans la méthode `TodoListController.createTodoItem()`
 
+
 *Pourquoi `todoItemRepository` est-il `null` ? Quelle est la meilleure façon de l'injecter ?*
+todoItemRepository est initialisé à null car il n'est pas initialisé par un constructeur sans argument ou par une injection de dépendances de Spring.
+Il faut utiliser l’injection de dépendances avec l’annotation @Autowired et supprimer les constructeurs.
+
 
 * Modifier le code en conséquence.
 
@@ -99,6 +129,8 @@ Source : http://leanpub.com/get-your-hands-dirty-on-clean-architecture[Tom Hombe
 
 *Rappeler en quelques lignes les grands principes de l'architecture hexagonale.*
 
+L’architecture hexagonale facilite la création de logiciels modulaires, évolutifs et testables en isolant la logique métier de l'application des détails techniques de l'infrastructure et des couches externes.
+
 Compléter ce code avec une fonctionnalité de création de `TodoItem`  persisté en base et appelé depuis un endpoint REST `POST /todos` qui :
 
 * prend un `TodoItem` au format JSON dans le body (voir exemple de contenu plus haut);
@@ -114,6 +146,10 @@ _Temps estimé : 20 mins_
 * Implémenter (en junit) des TU sur la règle de gestion qui consiste à afficher `[LATE!]` dans la description d'un item en retard de plus de 24h.
 
 *Quels types de tests devra-t-on écrire pour les adapteurs ?* 
+Tests de sécurité : ces tests visent à détecter les vulnérabilités et les failles de sécurité potentielles dans l'adaptateur. On peut ainsi  s’assurer que les données transférées sont protégées et que l'adaptateur ne représente pas une menace pour le Système. 
+Tests de performance : ces tests mesurent la vitesse et la capacité de traitement de l’adaptateur en fonction de la charge et du nombre de requêtes. On peut ainsi vérifier que l'adaptateur répond aux exigences de performance du système.
+ Tests d'intégration : ces tests visent à vérifier que l’adaptateur s’intègre correctement avec le système et qui peut communiquer avec les autres composants . La capacité à écrire et à lire des données à partir d’une base de données. 
+
 
 *S'il vous reste du temps, écrire quelques uns de ces types de test.*
 
