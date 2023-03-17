@@ -3,6 +3,7 @@ package com.acme.todolist.application.service;
 import javax.inject.Inject;
 
 import com.acme.todolist.adapters.persistence.TodoItemRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.acme.todolist.application.port.in.AddTodoItem;
@@ -12,6 +13,7 @@ import com.acme.todolist.domain.TodoItem;
 @Component
 public class AddTodoItemService implements AddTodoItem {
 
+	@Autowired
 	private UpdateTodoItem updateTodoItem;
 	public AddTodoItemService(UpdateTodoItem updateTodoItem) {
 	}
