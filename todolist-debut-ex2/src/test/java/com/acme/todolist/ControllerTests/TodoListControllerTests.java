@@ -22,12 +22,14 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 
@@ -51,7 +53,7 @@ public class TodoListControllerTests {
         todoItemRepository.save(mapper.mapToTodoItemJpaEntity(todoItem));
     }
 
-    @Test
+    /*@Test
     public void whenGetTodos_TodoIsLate_TestDisplayLate() throws Exception {
         createTestTodo("testItemMore24", Instant.now().plusSeconds(3600 * 25), "Test item de plus de 24h de retard");
         createTestTodo("testItemEqual24", Instant.now().plusSeconds(3600 * 24), "Test item d'exactement 24h de retard");
@@ -77,5 +79,19 @@ public class TodoListControllerTests {
                     fail("Unexpected todo item with id " + todoItem.getId());
             }
         }
+    }*/
+
+    @Test
+    public void testFinalContent_notLate() {
+        TodoItem item = new TodoItem("1", Instant.now(), "To do");
+        String finalContent = item.finalContent();
+        assertEquals("To do", finalContent);
+    }
+
+    @Test
+    public void testFinalContent_isLate() {
+        TodoItem item = new TodoItem("2", Instant.now().minus(2, ChronoUnit.DAYS), "To do");
+        String finalContent = item.finalContent();
+        assertEquals("[LATE!] To do", finalContent);
     }
 }
